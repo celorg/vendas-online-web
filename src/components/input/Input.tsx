@@ -3,12 +3,13 @@ import { BoxInput, TitleInput } from './input.style';
 
 interface InputProps extends InputPropsAntd {
     title?: string;
+    margin?: string;
 }
 
-export default function Input({title, ...props} :InputProps) {
+export default function Input({title, margin, ...props} :InputProps) {
     
     return (
-        <BoxInput>
+        <BoxInput style={{ margin }}>
             {title && (
                 <TitleInput >
                     {title}
