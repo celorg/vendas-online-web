@@ -1,13 +1,13 @@
 'use client'
 
-import Image from 'next/image'
-import { BackgroundImage, Container, ContainerError, ContainerLogin, LimitedContainer, LogoImage, TitleLogin } from './page.style';
+import { BackgroundImage, Container, ContainerError, ContainerLogin, LimitedContainer, TitleLogin } from './page.style';
 import Input from '@/components/input/Input';
 import Button from '@/components/buttons/Button';
 import React, { useState } from 'react';
 
 import axios, { AxiosError } from 'axios';
 import { Alert, Space } from 'antd';
+import SVGLogo from '@/components/icons/SVGLogo';
 
 export default function Home() {
 
@@ -46,11 +46,9 @@ export default function Home() {
             
         });
 
-        if(error){
-            setTimeout(() => {
-                setError('')
-            }, 10000);
-        }
+        setTimeout(() => {
+            setError('')
+        }, 10000);
         
     }
 
@@ -63,9 +61,7 @@ export default function Home() {
         />
         <ContainerLogin>
             <LimitedContainer>
-                <LogoImage 
-                    src="/imagens/images.jpeg" 
-                />
+                <SVGLogo />
                 <TitleLogin level={2} type='secondary' >LOGIN</TitleLogin>
                 {error && (
                     <Space direction="vertical" style={{ width: '100%' }}>
