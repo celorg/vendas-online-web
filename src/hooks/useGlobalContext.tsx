@@ -2,8 +2,14 @@
 
 import React, { ReactNode, createContext, useContext, useState } from "react";
 
+interface NotificationProps {
+    message: string;
+    type: string;
+}
+
 interface GlobalData {
     accessToken?: string;
+    notification?: NotificationProps;
 }
 
 interface GlobalContextProps {
@@ -11,7 +17,7 @@ interface GlobalContextProps {
     setGlobalData: (GlobalData: GlobalData) => void;
 }
 
-const GlobalContext = createContext({} as GlobalContextProps);
+export const GlobalContext = createContext({} as GlobalContextProps);
 
 interface GlobalProvider {
     children: ReactNode
@@ -39,8 +45,21 @@ export const useGlobalContext = () => {
         })
     }
 
+    const setNotification = (message: string, type: string) => {
+        setGlobalData({
+            ...globalData,
+            notification: {
+                message,
+                type
+            }
+        });
+        
+    }
+
     return {
         accessToken: globalData?.accessToken,
+        notification: globalData?.notification,
         setAcessToken,
+        setNotification
     }
 }

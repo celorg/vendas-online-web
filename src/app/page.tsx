@@ -3,13 +3,13 @@
 import { BackgroundImage, Container, ContainerError, ContainerLogin, LimitedContainer, TitleLogin } from './page.style';
 import Input from '@/components/input/Input';
 import Button from '@/components/buttons/Button';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import axios, { AxiosError } from 'axios';
 import { Alert, Space } from 'antd';
 import SVGLogo from '@/components/icons/SVGLogo';
 import { useRequests } from '@/hooks/useRequests';
-import { useGlobalContext } from '@/hooks/useGlobalContext';
+import { GlobalContext, useGlobalContext } from '@/hooks/useGlobalContext';
 
 interface LoginDTO {
     email: string;
@@ -25,6 +25,8 @@ export default function Home() {
     const { postRequest, loading } = useRequests();
 
     const [error, setError] = useState<string | undefined>('');
+
+    const{ globalData } = useContext(GlobalContext);
 
     const handleUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
        setUserName(e.target.value);
@@ -55,9 +57,9 @@ export default function Home() {
                 <SVGLogo />
                 ({accessToken})
                 <TitleLogin level={2} type='secondary' >LOGIN</TitleLogin>
-                {error && (
+                {globalData.notification?.message && (
                     <Space direction="vertical" style={{ width: '100%' }}>
-                        <Alert message={error} type="error" />
+                        <Alert message={globalData.notification.message} type="error" />
                     </Space>
                     // <ContainerError>{error}</ContainerError>
                 )}
